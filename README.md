@@ -40,11 +40,3 @@ Il faudra regarder du côté de [useRef](https://fr.reactjs.org/docs/hooks-refer
 ---
 
 Pour passer à la suite vous devez commit vos changements puis checkout sur la branche exo7
-
-
-
-
-
-
-
-
