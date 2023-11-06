@@ -1,37 +1,65 @@
-const firstName = 'r0ulito';
-const lastName = 'formateur';
-
-function FirstName(props) {
-
-    /*
-    // Solution avec bonus
-    const formatFirstName = (firstName) => {
-        return firstName[0].toUpperCase() + firstName.substr(1);
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
     }
 
-    return <span>{formatFirstName(props.text)}</span>
-    */
-
-    // Solution sans bonus
-    return <span>{props.text[0].toUpperCase() + props.text.substr(1)}</span>
-}
-
-function LastName(props) {
-
-    /*
-    // Solution avec bonus
-    const formatLastName = (lastName) => {
-        return lastName.toUpperCase();
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
     }
 
-    return <span>{formatLastName(props.text)}</span>
-    */
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
 
-    // Solution sans bonus
-    return <span className="red-text">{props.text.toUpperCase()}</span>
+    tick() {
+        this.setState({
+            date: new Date()
+        });
+    }
 
+    render() {
+        return (
+            <div>
+                <h1>Bonjour, monde !</h1>
+                <h2>Il est {this.state.date.toLocaleTimeString()}.</h2>
+            </div>
+        );
+    }
 }
 
-const helloWorld = <h1>Hello <FirstName text={firstName}/> <LastName text={lastName}/></h1>;
+ReactDOM.render(
+    <Clock />,
+    document.getElementById('app')
+);
 
-ReactDOM.render(helloWorld, document.querySelector('#app'));
+function Clock() {
+    const [date, setDate] = React.useState(new Date());
+
+    React.useEffect(() => {
+        const timerID = setInterval(() => tick(), 1000);
+
+        return function cleanup() {
+            clearInterval(timerID);
+        };
+    }, []);
+
+    function tick() {
+        setDate(new Date());
+    }
+
+    return (
+        <div>
+            <h1>Bonjour, monde !</h1>
+            <h2>Il est {date.toLocaleTimeString()}.</h2>
+        </div>
+    );
+}
+
+ReactDOM.render(
+    <Clock />,
+    document.getElementById('app')
+);
