@@ -100,11 +100,3 @@ Nous allons faire en sorte d'utiliser une ternaire pour l'affichage conditionnel
 ---
 
 Pour passer à la suite vous devez commit vos changements puis checkout sur la branche exo8
-
-
-
-
-
-
-
-
