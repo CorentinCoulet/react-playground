@@ -1,22 +1,22 @@
 function UserGreeting(props) {
     return <h1>Bienvenue !</h1>;
-  }
+}
   
-  function GuestGreeting(props) {
+function GuestGreeting(props) {
     return <h1>Veuillez vous connecter</h1>;
-  }
-  function Greeting(props) {
-      const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+}
+function Greeting(props) {
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-      const handleLogIn = (e) => {
-          e.preventDefault();
-          setIsLoggedIn(true);
-      }
+    const handleLogIn = (e) => {
+        e.preventDefault();
+        setIsLoggedIn(true);
+    }
 
-      const handleLogOut = (e) => {
-          e.preventDefault();
-          setIsLoggedIn(false);
-      }
+    const handleLogOut = (e) => {
+        e.preventDefault();
+        setIsLoggedIn(false);
+    }
 
     return(
         <React.Fragment>
@@ -31,9 +31,47 @@ function UserGreeting(props) {
             </React.Fragment> }
         </React.Fragment>
     )
+}
+
+function UserCard({ user }) {
+    return (
+      <div className="user-card" key={user.id}>
+        <h2>{user.name}</h2>
+        <p>Email: {user.email}</p>
+        <p>Company: {user.company.name}</p>
+        <p>Phone: {user.phone}</p>
+        <p>Website: {user.website}</p>
+      </div>
+    );
   }
   
-  ReactDOM.render(
+function UserList() {
+    const [users, setUsers] = React.useState([]);
+  
+    React.useEffect(() => {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json())
+        .then((data) => setUsers(data))
+        .catch((error) => console.error(error));
+    }, []);
+  
+    return (
+      <div className="user-list">
+        {users.length === 0 ? (
+          <p>Loading...</p>
+        ) : (
+          users.map((user) => <UserCard key={user.id} user={user} />)
+        )}
+      </div>
+    );
+}
+  
+ReactDOM.render(
+    <UserList />, 
+    document.getElementById("add")
+);
+  
+ReactDOM.render(
     <Greeting />,
     document.querySelector('#app')
-  );
+);
