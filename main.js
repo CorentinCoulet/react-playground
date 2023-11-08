@@ -46,31 +46,46 @@ function UserCard({ user }) {
   }
   
 function UserList() {
-    const [users, setUsers] = React.useState([]);
-  
-    React.useEffect(() => {
-      fetch("https://jsonplaceholder.typicode.com/users")
-        .then((response) => response.json())
-        .then((data) => setUsers(data))
-        .catch((error) => console.error(error));
-    }, []);
-  
-    return (
-      <div className="user-list">
-        {users.length === 0 ? (
-          <p>Loading...</p>
-        ) : (
-          users.map((user) => <UserCard key={user.id} user={user} />)
-        )}
-      </div>
-    );
+  const [users, setUsers] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        if (isMounted) {
+          setUsers(data);
+          setLoading(false);
+        }
+      })
+      .catch((error) => console.error(error));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="user-list">
+      {users.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
+    </div>
+  )
 }
   
+ 
 ReactDOM.render(
-    <UserList />, 
-    document.getElementById("add")
+  <UserList />,
+  document.querySelector('#app')
 );
-  
+
 ReactDOM.render(
     <Greeting />,
     document.querySelector('#app')
