@@ -68,18 +68,6 @@ La méthode `toString()` nous permettra de convertir facilement nos inputs dans 
 
 <small>Peut-être que nous aurons également besoin de la méthode [`parseInt()`](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/parseInt)</small>
 
-
-
-
-
 ---
 
 Pour passer à la suite vous devez commit vos changements puis checkout sur la branche exo11
-
-
-
-
-
-
-
-

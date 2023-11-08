@@ -36,6 +36,50 @@
   }
  */
 
+function App(){
+  const [decimalValue, setDecimalValue] = React.useState(0);
+  const [binaryValue, setBinaryValue] = React.useState(0);
+  
+  const handleDecimalChange = (newValue) => {
+    setDecimalValue(newValue);
+    setBinaryValue(decimalToBinary(newValue));
+  }
+  const handleBinaryChange = (newValue) => {
+    setBinaryValue(newValue);
+    setDecimalValue(binaryToDecimal(newValue));
+  }
+
+  const decimalToBinary = (decimalValue) => {
+    return parseInt(decimalValue, 10).toString(2);
+  };
+
+  const binaryToDecimal = (binaryValue) => {
+    return parseInt(binaryValue, 2).toString(10);
+  };
+
+  return (
+    <div className="App">
+      <BaseNumberInput value={decimalValue} onChangeBase={handleDecimalChange} />
+      <BaseNumberInput value={binaryValue} onChangeBase={handleBinaryChange} />
+      <NameForm />
+      <EssayForm />
+    </div>
+  )
+}
+
+function BaseNumberInput({value, onChangeBase}){
+  const handleChange = (e) => {
+    onChangeBase(e.target.value);
+  };
+
+  return (
+    <input 
+      type="number"
+      value={value}
+      onChange={handleChange}
+    />
+  )
+}
 
 function NameForm(props) {
     const [name, setName] = React.useState('');
@@ -50,33 +94,23 @@ function NameForm(props) {
         console.log(`Le nom a été soumis: ${name}`);
     }
 
-
-
     return(
-    <form onSubmit={handleSubmit}>
-        <label>
-        Nom :
-        <input type="text" value={name} onChange={handleChange} />
-        </label>
-        <input type="submit" value="Envoyer" />
-    </form>
-);
+      <form onSubmit={handleSubmit}>
+          <label>
+          Nom :
+          <input type="text" value={name} onChange={handleChange} />
+          </label>
+          <input type="submit" value="Envoyer" />
+      </form>
+    );
 }
 
-
-
-// ReactDOM.render(<NameForm />, document.querySelector('#app'));
-
-
-
-
+ReactDOM.render(<App />, document.querySelector('#app'));
 
 
 // -------------------------------------------
 // Étape 2 => On modifie le composant textarea
 // -------------------------------------------
-
-
 
 /* class EssayForm extends React.Component {
     constructor(props) {
@@ -138,12 +172,7 @@ function EssayForm(props) {
 
   }
 
-
-
 //   ReactDOM.render(<EssayForm />, document.querySelector('#app'));
-
-
-
 
 
 // -------------------------------------------
@@ -214,11 +243,7 @@ function FlavorForm(props) {
     );
 }
 
-
-
 //ReactDOM.render(<FlavorForm/>, document.querySelector('#app'));
-
-
 
 
 function MultiForm(props) {
@@ -228,14 +253,10 @@ function MultiForm(props) {
         value: "coconut"
     });
 
-    
-
 /*     
-
     // useCallback n'est pas forcément le meilleur choix ici
 
-    
-    const handleChange = React.useCallback(
+      const handleChange = React.useCallback(
         ({target: {name, value}}) => {
             setInputs(state => ({...state, [name]: value}), []);
             console.log(inputs);
@@ -244,8 +265,7 @@ function MultiForm(props) {
     )
 
  */
-
-    
+   
     const handleChange = ({target: {name, value}}) => {
         setInputs(state => ({...state, [name]: value}), []);
     }
@@ -257,8 +277,7 @@ function MultiForm(props) {
         }
     }
 
-
-    return(
+   return(
         <form onSubmit={handleSubmit}>
             <label>
                 Nom :
@@ -285,4 +304,4 @@ function MultiForm(props) {
     )
 }
 
-ReactDOM.render(<MultiForm />, document.querySelector('#app'));
+//ReactDOM.render(<MultiForm />, document.querySelector('#app'));
