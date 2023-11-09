@@ -1,6 +1,7 @@
 import { PropTypes } from "prop-types";
 
-function TodoInput({ newTodo, handleTodoTitleChange, handleKeyDownFromTodo }) {
+function TodoInput(props) {
+  let { newTodo, handleTodoTitleChange, handleKeyDownFromTodo } = props;
 
   const handleKeyDown = (e) => {
     let { key } = e;
@@ -23,11 +24,12 @@ function TodoInput({ newTodo, handleTodoTitleChange, handleKeyDownFromTodo }) {
       />
     </div>
   );
-
-  TodoInput.PropTypes = {
-    newTodo: PropTypes.object.isRequired,
-    handleTodoTitleChange: PropTypes.func.isRequired,
-  };
 }
+
+TodoInput.propTypes = {
+  newTodo: PropTypes.object.isRequired,
+  handleTodoTitleChange: PropTypes.func,
+  handleKeyDownFromTodo: PropTypes.func,
+};
 
 export default TodoInput;
